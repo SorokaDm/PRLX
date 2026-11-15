@@ -1,3 +1,4 @@
+<img width="2040" height="657" alt="image" src="https://github.com/user-attachments/assets/86fedc65-fcd3-4feb-9d12-7b13ec7e8535" />
 # PRLX — Mars Surface EVA Navigation & 3D POV
 
 **PRLX** is an interactive Mars surface operations and EVA (extravehicular activity) route-planning platform built on real **1-meter NASA HiRISE Digital Terrain Models (DTM)**, orbital imagery, and a real-time first-person 3D surface POV simulator.
