@@ -1,4 +1,4 @@
-<img width="2040" height="657" alt="image" src="https://github.com/user-attachments/assets/86fedc65-fcd3-4feb-9d12-7b13ec7e8535" />
+<img width="812" height="777" alt="image" src="https://github.com/user-attachments/assets/af050cb0-4472-4eb0-a856-bbc5fa5d1a40" />
 
 # PRLX — Mars Surface EVA Navigation & 3D POV
 
