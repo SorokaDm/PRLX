@@ -1,47 +1,61 @@
-# Explore Mars
+# PRLX — Mars Surface EVA Navigation & 3D POV
 
-An interactive 3D web application showing the planet Mars, using the [ArcGIS Maps SDK for Javascript](https://developers.arcgis.com/javascript/). This is a non-commercial demo application made by the Esri R&D Center Zurich. It is intended for presentations or as a starting point for new projects.t for new projects.
+**PRLX** is an interactive Mars surface operations and EVA (extravehicular activity) route-planning platform built on real **1-meter NASA HiRISE Digital Terrain Models (DTM)**, orbital imagery, and a real-time first-person 3D surface POV simulator.
 
-[![screenshot](./screenshot.jpg)](https://esri.github.io/explore-mars)
+🎥 **[Watch 30-Second Demo Video](https://drive.google.com/file/d/1v5gWNWIk_j1LFEksZMr6s0oVxdgw29s1/view?usp=sharing)**
 
-The app uses multiple API features like [Elevation Profile](https://developers.arcgis.com/javascript/latest/references/map-components/components/arcgis-elevation-profile/), [glTF import](https://developers.arcgis.com/javascript/latest/sample-code/import-gltf/index.html) and a [custom Spatial Reference](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-SpatialReference.html).
+---
 
-On the technical side the app is built using [TypeScript](https://www.typescriptlang.org/), [npm](https://www.npmjs.com/) and [Vite](https://vitejs.dev/).
+## Key Capabilities
 
-## Instructions
+- **4 High-Resolution 1m HiRISE Landing Zones**:
+  - **Jezero Delta** (Perseverance)
+  - **Gale Boxwork** (Curiosity)
+  - **Candor Chasma** (Valles Marineris)
+  - **Oxia Planum** (ExoMars)
+- **A\* Terrain-Aware Route Planning** (`src/eva/dtmAnalyzer.ts`):
+  - Place custom waypoints directly on the Mars globe (`+ Waypoint`), reorder stops (`↑` / `↓`), or auto-optimize (`Auto Safe`).
+  - Full 2D terrain-gradient A\* pathfinding penalizes steep cliffs/descents (`>20°` On Foot, `>15°` Rover) and routes along flat valley floors.
+  - Real-time elevation profile chart, **UHF Line-of-Sight (LOS)** obstruction check, oxygen consumption, and JSON plan export.
+- **4 Orbital & Surface Data Modes** (`1`–`4`):
+  1. **Optical (MDIM + HiRISE)** — True-color orbital mosaic & local surface view
+  2. **Topography & Slope** — Shaded relief + real-time 1m DTM slope hazard heatmap
+  3. **Geology (USGS)** — Global USGS geologic map + elevation stratigraphy
+  4. **Hazards & Radiation** — USGS Mars Digital Dune Database (MGD3) + topographic sky-shielding & exposure map
+- **First-Person 3D Surface POV** (`src/eva/SurfacePovEngine.ts`):
+  - Walk/sprint (`WASD` + `Shift`) across real 1m HiRISE terrain with Martian gravity jumping (`Space`, `3.72 m/s²`).
+  - Player-centered scrolling minimap + **`[M]` Full Tactical Map** overview fitting the entire route.
+  - **`[P]` Pin** field markers and **`[E]` Waypoint Inspector** showing real DTM elevation, slope, coordinates, and sky-shielding.
 
-A live version is available [here](https://esri.github.io/explore-mars).
+---
 
-To run the source code locally, follow these steps:
+## Run Locally
 
-```
-git clone https://github.com/Esri/explore-mars.git
-cd explore-mars/
+```bash
+git clone https://github.com/SorokaDm/PRLX.git
+cd PRLX
 npm install
-npm run start # serves application at http://localhost:3000
+npm run dev
 ```
 
-For more details about running and deploying the application see our [development and deployment instructions](./DEVELOP_AND_DEPLOY.md).
+Then open `http://localhost:3000/` in your browser.
 
-## Resources
+---
 
-The following external libraries, APIs, open datasets and specifications were used to make this application:
+## Tech Stack & Data Sources
 
-- [ArcGIS Maps SDK for JavaScript](https://developers.arcgis.com/javascript/)
-- [zip.js](https://gildas-lormeau.github.io/zip.js/) for extracting glTF models
-- [Calcite Web](http://esri.github.io/calcite-web/)
+- **3D Globe & GIS**: [ArcGIS Maps SDK for JavaScript](https://developers.arcgis.com/javascript/) (`SceneView`, custom `JezeroElevationLayer`, `wkid: 104971` Mars 2000)
+- **3D Surface Engine**: [Three.js](https://threejs.org/) (`WebGLRenderer`, 1m HiRISE DTM meshes, custom sky dome)
+- **Data**: NASA/JPL/University of Arizona HiRISE 1m DTM, USGS MDIM 2.1, USGS Global Geologic Map of Mars, USGS MGD3 Dunes, NASA DONKI Space Weather API
+- **Tooling**: TypeScript, Vite, Sass
 
-## Disclaimer
+---
 
-This demo application is for illustrative purposes only and it is not maintained. There is no support available for deployment or development of the application.
+## Attribution & Licensing
 
-## Contributing
+Built on top of the open-source [Esri/explore-mars](https://github.com/Esri/explore-mars) template (Apache License 2.0) for the base ArcGIS Mars `SceneView` and orbital layers. All PRLX EVA mission planning, A\* 1m DTM pathfinding, 3D surface POV, tactical mapping, and UI modules (`src/eva/*`, `src/home/HomePage.tsx`) were developed for this hackathon project.
 
-Esri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/esri/contributing).
-
-## Licensing
-
-Copyright 2024 Esri
+Copyright 2024 Esri (base template) & PRLX Team
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -55,4 +69,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-A copy of the license is available in the repository's [license.txt](./license.txt) file.
+A copy of the license is available in [license.txt](./license.txt).
