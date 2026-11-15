@@ -27,6 +27,7 @@ export type Page =
   | "locations"
   | "measure"
   | "compare"
+  | "eva"
   | "credits";
 
 type RouteConfig<R extends string, Path extends string, State> = {
@@ -166,11 +167,23 @@ export class Store extends Accessor {
   route = new Route({
     path: "landing",
     route: "root",
-    paths: ["landing", "home", "compare", "measure", "locations", "credits"],
+    paths: ["landing", "home", "compare", "measure", "locations", "eva", "credits"],
   });
 
   @property()
   status: "uninitialized" | "idle" | "loading" | "editing";
+
+  @property()
+  surfacePovActive = false;
+
+  @property()
+  activeMissionId: "jezero" | "gale" | "candor" | "oxia" = "jezero";
+
+  @property()
+  activeInteractionMode: "none" | "pov" | "waypoint" = "none";
+
+  @property()
+  pendingPovTarget: { lon: number; lat: number } | null = null;
 
   async initialize() {
     this.status = "uninitialized";

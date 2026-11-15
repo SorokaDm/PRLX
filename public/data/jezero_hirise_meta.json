@@ -1,0 +1,12 @@
+{
+  "source": "USGS Astrogeology Mars 2020 TRN HiRISE DTM (PSP_002387_1985 / PSP_003798_1985)",
+  "doi": "https://doi.org/10.5066/P9REJ9JN",
+  "width": 1536,
+  "height": 1024,
+  "minLon": 77.365,
+  "maxLon": 77.46,
+  "minLat": 18.435,
+  "maxLat": 18.5,
+  "minElevM": -2585.09,
+  "maxElevM": -2394.24
+}

@@ -18,6 +18,8 @@ import { tsx } from "@arcgis/core/widgets/support/widget";
 import AppState from "./AppState";
 import { ComparePage } from "../compare/ComparePage";
 import { MeasurePage } from "../measure/MeasurePages";
+import { EvaMissionPanel } from "../eva/EvaMissionPanel";
+import { GlobalDataLayersBar } from "../eva/GlobalDataLayersBar";
 import { match } from "ts-pattern";
 import type { Page } from "./AppState";
 import { LocationPage } from "../location/LocationPage";
@@ -38,6 +40,7 @@ class Application extends Widget {
       .with("landing", () => <div style="display:none;" />)
       .with("measure", () => <MeasurePage />)
       .with("compare", () => <ComparePage />)
+      .with("eva", () => <div style="display:none;" />)
       .with("credits", () => <CreditsPage />)
       .with("locations", () => <LocationPage />)
       .run()!;
@@ -45,6 +48,7 @@ class Application extends Widget {
 
   render() {
     const path = AppState.route.path;
+    const surfacePovActive = AppState.surfacePovActive;
 
     const content = match(AppState.status)
       .with("loading", () => <Loading />)
@@ -52,26 +56,16 @@ class Application extends Widget {
 
     return (
       <div class={styles.wrapper}>
-        <MenuBar
-          onItemClick={(item) => {
-            this.goToPage(item);
-          }}
-        />
-        <CookieBanner />
-        <PageWrapper
-          hidden={
-            AppState.route.match("home") || AppState.route.match("landing")
-          }
-          children={content}
-          class={AppState.status === "editing" ? styles.obscureMenu : ""}
-        />
+        {!AppState.route.match("landing") ? <EvaMissionPanel /> : null}
+        {!AppState.route.match("landing") && !surfacePovActive ? (
+          <GlobalDataLayersBar />
+        ) : null}
         <LandingPage
           hidden={!AppState.route.match("landing")}
           onStart={() => {
             this.goToPage("home");
           }}
         />
-        <BasemapSwitcher />
       </div>
     );
   }

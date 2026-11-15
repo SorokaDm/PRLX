@@ -14,19 +14,18 @@
  */
 import Basemap from "@arcgis/core/Basemap";
 import SpatialReference from "@arcgis/core/geometry/SpatialReference";
-import ElevationLayer from "@arcgis/core/layers/ElevationLayer";
 import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
 import GroupLayer from "@arcgis/core/layers/GroupLayer";
 import TileLayer from "@arcgis/core/layers/TileLayer";
+import { JezeroElevationLayer } from "../eva/JezeroElevationLayer";
 
 export const marsSR = new SpatialReference({ wkid: 104971 });
 
-export const marsElevation = new ElevationLayer({
+export const marsElevation = new JezeroElevationLayer({
   id: "marsElevation",
   title: "marsElevation",
-  url: "https://astro.arcgis.com/arcgis/rest/services/OnMars/MDEM200M/ImageServer",
-  copyright:
-    "NASA, ESA, HRSC, Goddard Space Flight Center, USGS Astrogeology Science Center, Esri",
+  reliefExaggeration: 1.6,
+  hiResEnabled: true,
 });
 
 export const marsHiRiseImagery = new TileLayer({
@@ -35,9 +34,9 @@ export const marsHiRiseImagery = new TileLayer({
     id: "c1c4c750a2154842ae523c984cc14fa5",
   },
   title: "Mars HiRise - Imagery service",
-  // minScale: 30000,
-  opacity: 1,
-  visible: false,
+  minScale: 250000,
+  opacity: 0.32,
+  visible: true,
 });
 
 // export const marsReconnaissanceImagery = new TileLayer({

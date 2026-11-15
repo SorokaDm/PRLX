@@ -73,15 +73,7 @@ function initializeBasemapBehavior(view: SceneView | null | undefined) {
       },
       { initial: true },
     ),
-    reactiveUtils.when(
-      () => view.stationary,
-      () => {
-        void debouncedUpdateHiRiseVisibility(view);
-      },
-    ),
   ]);
-
-  void debouncedUpdateHiRiseVisibility(view);
 }
 
 export function BasemapSwitcher() {

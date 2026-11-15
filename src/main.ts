@@ -30,6 +30,7 @@ import { addFrameTask } from "@arcgis/core/core/scheduling";
 import * as reactiveUtils from "@arcgis/core/core/reactiveUtils";
 import AppState from "./application/AppState";
 import SceneView from "@arcgis/core/views/SceneView";
+import { getMissionDataset } from "./eva/jezeroDataset";
 
 const map = new Map({
   basemap: marsImageryBasemap,
@@ -43,12 +44,12 @@ const map = new Map({
 const view = new SceneView({
   container: "viewDiv",
   map,
-  qualityProfile: "high",
+  qualityProfile: "medium",
   spatialReference: marsSR,
   environment: {
     lighting: {
       type: "virtual",
-      directShadowsEnabled: true,
+      directShadowsEnabled: false,
     },
   },
   camera: {
@@ -84,6 +85,10 @@ view.ui.remove("attribution");
 
 const spinGlobe = addFrameTask({
   update: () => {
+    if (!AppState.route.match("landing")) {
+      spinGlobe.remove();
+      return;
+    }
     if (!view.interacting) {
       const camera = view?.camera.clone();
       if (camera.position.longitude == null) {
@@ -108,10 +113,16 @@ reactiveUtils.when(
   () => AppState.route.path !== "landing",
   () => {
     spinGlobe.remove();
-    const camera = view.camera.clone();
-    camera.position.z = 8382276.030513974;
-    camera.tilt = 0.15;
-    void view.goTo(camera, { speedFactor: 0.5 });
+    const ds = getMissionDataset(AppState.activeMissionId);
+    void view.goTo(
+      {
+        center: [ds.camera.x, ds.camera.y],
+        scale: 42000,
+        heading: 0,
+        tilt: 45,
+      },
+      { speedFactor: 0.75 },
+    );
   },
 );
 

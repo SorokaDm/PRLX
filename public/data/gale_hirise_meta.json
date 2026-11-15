@@ -1,0 +1,11 @@
+{
+  "source": "NASA/UArizona HiRISE DTM (ESP_023957_1755 / ESP_024023_1755)",
+  "width": 512,
+  "height": 512,
+  "minLon": 137.429195,
+  "maxLon": 137.544652,
+  "minLat": -4.701417,
+  "maxLat": -4.412582,
+  "minElevM": -4533.8,
+  "maxElevM": -3686.81
+}

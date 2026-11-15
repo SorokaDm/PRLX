@@ -1,0 +1,11 @@
+{
+  "source": "NASA/UArizona HiRISE DTM (PSP_001918_1735 / PSP_001984_1735)",
+  "width": 512,
+  "height": 512,
+  "minLon": -76.982385,
+  "maxLon": -76.873288,
+  "minLat": -6.561619,
+  "maxLat": -6.377867,
+  "minElevM": 782.35,
+  "maxElevM": 1298.65
+}

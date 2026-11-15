@@ -83,6 +83,16 @@ export function MenuBar({ onItemClick }: MenuBarProps) {
               <img class={styles.icon} alt="" src={compare} />
               <div class={styles.label}>Compare</div>
             </a>
+            <a
+              class={cx(styles.menuItem)}
+              onclick={(e: Event) => {
+                if (AppState.route.path === "eva") onItemClick("home");
+                else onItemClick("eva");
+              }}
+            >
+              <img class={styles.icon} alt="" src={location} />
+              <div class={styles.label}>EVA Planner</div>
+            </a>
           </div>
           <a
             class={cx(styles.menuItem, styles.logoItem, styles.credits)}
